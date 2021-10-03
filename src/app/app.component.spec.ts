@@ -9,7 +9,7 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
   });
-
+  // const app = fixture.componentInstance;
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
