@@ -1,0 +1,127 @@
+
+
+    <div id="categories">
+
+
+        <div class="logo">
+
+            <span class="nav-title">Категории</span>
+
+            <!--    иконка добавления новой категории -->
+            <span class="add-icon-area">
+
+          <button (click)="openAddDialog()" class="add-icon" mat-icon-button>
+      <mat-icon>add</mat-icon>
+        </button>
+    </span>
+
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+
+
+                <!--      поиск категорий -->
+                <div class="search-category-area">
+
+                    <mat-form-field class="example-full-width">
+                        <input
+
+                            #inputSearchCategory
+
+                            (keydown.escape)="searchCategoryTitle = ''; search()"
+                            (keyup)="search()"
+                            [(ngModel)]="searchCategoryTitle"
+
+                            matInput
+                            maxlength="256"
+                            placeholder="Поиск категорий"
+
+                        />
+
+                        <button
+                                (click)="searchCategoryTitle = ''; search()"
+                                *ngIf="inputSearchCategory.value.trim().length > 0" aria-label="Clear"
+                                class="search-category-button size25 gray"
+                                mat-button
+
+                                mat-icon-button
+
+                                matSuffix
+                        >
+                            <mat-icon>clear</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+
+                </div>
+
+
+                <!-- виртуальная категория 'Все'-->
+                <li (click)="showTasksByCategory(null)" [class.active]="selectedCategory === null"
+                    class="nav-item category">
+
+                    <a class="nav-link pointer">
+
+                        <!--          название категории-->
+                        <span class="all-category-title">Все</span>
+
+                        <!--сколько невыполненных задач-->
+                        <span class="uncompleted-count"> {{uncompletedTotal}}</span>
+
+                    </a>
+                </li>
+
+                <!-- разделитель-->
+                <div class="line"></div>
+
+                <div *ngIf="categoryMap.size === 0"><p class="not-found">Ничего не найдено</p></div>
+
+
+                <li
+                        (click)="showTasksByCategory(mapValue.key)" (mouseenter)="showEditIcon(index)"
+
+                        (mouseleave)="showEditIcon(null)"
+
+                        *ngFor="let mapValue of categoryMap | keyvalue; let index = index"
+                        [class.active]="mapValue.key === selectedCategory"
+
+
+                        class="nav-item pointer"
+
+                >
+                    <a class="nav-link">
+
+                        <!--          название категории-->
+                        <span class="category-title">{{mapValue.key.title}}</span>
+
+
+                        <!--         кнопка редактирования категории-->
+                        <span class="edit-category-icon-area">
+
+            <mat-icon
+                    *ngIf="indexMouseMove === index || isMobile || isTablet"
+                    (click)="$event.stopPropagation(); openEditDialog(mapValue.key)"
+
+                    class="edit-category-icon"
+
+
+            >edit
+            </mat-icon>
+
+
+
+          </span>
+
+
+                        <!--сколько невыполненных задач-->
+                        <span class="uncompleted-count"> {{mapValue.value}}</span>
+
+
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="sidebar-background"></div>
+
+    </div>
