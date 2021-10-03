@@ -1,0 +1,45 @@
+<div *ngIf="showStat">
+    <div class="row">
+
+
+        <app-stat-card
+                [completed]="true"
+                [count1]="completeTasksInCategory"
+                [countTotal]="totalTasksInCategory"
+                class='col-lg-3 col-md-6 col-sm-6'
+                iconName="done"
+                title="Завершенные задачи"
+        >
+        </app-stat-card>
+
+        <app-stat-card
+                [count1]="uncompleteTasksInCategory"
+                [countTotal]="totalTasksInCategory"
+                class='col-lg-3 col-md-6 col-sm-6'
+                iconName="thumb_down_alt"
+                title="Незавершенные задачи"
+        >
+        </app-stat-card>
+
+
+        <app-stat-card
+                [completed]="true"
+                [count1]="completeTasksInCategory ? (completeTasksInCategory/totalTasksInCategory | percent) : '0 %'"
+                class='col-lg-3 col-md-6 col-sm-6 completed-card'
+                iconName="poll"
+                title="Процент завершенных задач"
+
+        >
+        </app-stat-card>
+
+
+        <app-stat-card
+                [count1]="uncompleteTasksInCategory ? (uncompleteTasksInCategory/totalTasksInCategory | percent) : '0 %'"
+                class='col-lg-3 col-md-6 col-sm-6'
+                iconName="thumb_down_alt"
+                title="Процент незавершенных задач">
+        </app-stat-card>
+
+
+    </div>
+</div>
